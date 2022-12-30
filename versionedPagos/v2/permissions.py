@@ -9,3 +9,13 @@ class CustomPermission(permissions.BasePermission):
       return True
 
     return False
+
+class ServicePermission(permissions.BasePermission):
+  
+  def has_permission(self, request, view):
+    if request.user.is_superuser:
+      return True
+    if request.method in ['GET']:
+      return True
+
+    return False

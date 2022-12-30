@@ -1,16 +1,25 @@
 from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets, status
+from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.throttling import UserRateThrottle
 
 from versionedPagos.models import Payment, Services, Expired_payments
 from .serializers import PaymentSerializer, ServiceSerializer, ExpiredPaymentsSerializer
 from .pagination import StandardResultsSetPagination
+from .permissions import ServicePermission, CustomPermission
 
 class PaymentsViewSet(viewsets.ModelViewSet):
   queryset = Payment.objects.all()
   pagination_class = StandardResultsSetPagination
-  # serializer_class = PaymentSerializer
+  # permission_classes = [IsAuthenticated, CustomPermission]
+  filter_backends = [SearchFilter]
+  search_fields = ['PaymentDate', 'ExpirationDate']
+  
+  throttle_scope = 'pagos'
 
   def get_serializer_class(self):
     return PaymentSerializer
@@ -78,7 +87,13 @@ class PaymentsViewSet(viewsets.ModelViewSet):
 class ServicesViewSet(viewsets.ModelViewSet):
   queryset = Services.objects.all()
   serializer_class = ServiceSerializer
+  permission_classes = [IsAuthenticated, ServicePermission]
+
+  throttle_scope = 'servicesAndExpiredPayments'
 
 class ExpiredPaymentsViewSet(viewsets.ModelViewSet):
   queryset = Expired_payments.objects.all()
   serializer_class = ExpiredPaymentsSerializer
+  permission_classes = [IsAuthenticated, CustomPermission]
+
+  throttle_scope = 'servicesAndExpiredPayments'

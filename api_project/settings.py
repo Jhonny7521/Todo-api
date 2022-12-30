@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-ynz1b*^5+9$s4-z6#tefrl&i7$oy&*2*=+3rp^#_k=_yvu1s(q
 DEBUG = True
 
 ALLOWED_HOSTS = ['pagos-api-production.up.railway.app']
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
@@ -148,12 +150,17 @@ REST_FRAMEWORK = {
 
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 100,
+
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
     
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.ScopedRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
         'pagos': '1000/day',
+        'servicesAndExpiredPayments': '2000/day',
 
     }
 }
