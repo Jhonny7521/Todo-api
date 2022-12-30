@@ -15,10 +15,10 @@ from .permissions import ServicePermission, CustomPermission
 class PaymentsViewSet(viewsets.ModelViewSet):
   queryset = Payment.objects.all()
   pagination_class = StandardResultsSetPagination
-  # permission_classes = [IsAuthenticated, CustomPermission]
+  permission_classes = [IsAuthenticated, CustomPermission]
   filter_backends = [SearchFilter]
   search_fields = ['PaymentDate', 'ExpirationDate']
-  
+
   throttle_scope = 'pagos'
 
   def get_serializer_class(self):
