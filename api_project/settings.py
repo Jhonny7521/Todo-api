@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -87,11 +87,11 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pagos_project',
+        'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '7aah3Dpjhony',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PASSWORD': 'DTXO5T6JSIjux173qjnp',
+        'HOST': 'containers-us-west-109.railway.app',
+        'PORT': '6687',
     }
 }
 
