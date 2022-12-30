@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ynz1b*^5+9$s4-z6#tefrl&i7$oy&*2*=+3rp^#_k=_yvu1s(q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pagos-api-production.up.railway.app']
 
 
 # Application definition
